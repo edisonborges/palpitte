@@ -426,7 +426,7 @@ export function JogosClient({ matches }: { matches: Match[] }) {
     <div className="p-8 max-w-7xl mx-auto">
       {/* Hero */}
       <div className="mb-8">
-        <h2 className="text-3xl font-extrabold tracking-tight text-white">Jogos disponíveis</h2>
+        <h2 className="text-3xl font-extrabold tracking-tight text-white">Palpites</h2>
         <p className="text-slate-400 mt-1">Dê seus palpites antes do apito inicial e suba no ranking.</p>
       </div>
 

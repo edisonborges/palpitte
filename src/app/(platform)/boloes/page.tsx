@@ -151,18 +151,32 @@ export default function BaloesPage() {
                 </p>
               </div>
             ) : (
-              boloes.map((bolao) => (
+              boloes.map((bolao, idx) => {
+                const covers = [
+                  "https://images.unsplash.com/photo-1489944440615-453fc2b6a9a9?w=400&h=200&fit=crop",
+                  "https://images.unsplash.com/photo-1574629810360-7efbbe195018?w=400&h=200&fit=crop",
+                  "https://images.unsplash.com/photo-1431324155629-1a6deb1dec8d?w=400&h=200&fit=crop",
+                  "https://images.unsplash.com/photo-1543326727-cf6c39e8f84c?w=400&h=200&fit=crop",
+                  "https://images.unsplash.com/photo-1560272564-c83b66b1ad12?w=400&h=200&fit=crop",
+                ];
+                const cover = covers[idx % covers.length];
+                return (
                 <div
                   key={bolao.id}
-                  className="group relative bg-white dark:bg-slate-800 rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-700 hover:border-[#FF6B00]/50 transition-all p-1"
+                  className="group relative bg-white dark:bg-slate-800 rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-700 hover:border-[#FF6B00]/50 transition-all"
                 >
-                  <div className="flex flex-col md:flex-row gap-6 p-5">
-                    <div className="w-full md:w-48 h-32 rounded-xl bg-gradient-to-br from-[#FF6B00]/20 to-slate-300/20 dark:from-[#FF6B00]/10 dark:to-slate-700 overflow-hidden flex-shrink-0 flex items-center justify-center">
-                      <span className="material-symbols-outlined text-5xl text-[#FF6B00]/50">
-                        emoji_events
-                      </span>
+                  <div className="flex flex-col md:flex-row gap-0">
+                    <div className="w-full md:w-48 h-40 md:h-auto relative flex-shrink-0 overflow-hidden">
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
+                      <img
+                        src={cover}
+                        alt={bolao.name}
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-r from-transparent to-slate-800/60 md:block hidden" />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent md:hidden" />
                     </div>
-                    <div className="flex-1 flex flex-col justify-between">
+                    <div className="flex-1 flex flex-col justify-between p-5">
                       <div className="flex justify-between items-start">
                         <div>
                           <div className="flex items-center gap-2 mb-1">
@@ -201,7 +215,8 @@ export default function BaloesPage() {
                     </div>
                   </div>
                 </div>
-              ))
+                );
+              })
             )}
           </div>
 
