@@ -1,0 +1,296 @@
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["driverAdapters"]
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum UserRole {
+  USER
+  RESELLER
+  ADMIN
+}
+
+enum UserStatus {
+  ACTIVE
+  PENDING
+  BLOCKED
+}
+
+enum Plan {
+  STARTER
+  PRO
+  ENTERPRISE
+}
+
+enum PlanStatus {
+  ACTIVE
+  SUSPENDED
+  CANCELLED
+  TRIAL
+}
+
+enum MatchStatus {
+  SCHEDULED
+  LIVE
+  FINISHED
+  CANCELLED
+}
+
+enum BolaoStatus {
+  ACTIVE
+  FINISHED
+  ARCHIVED
+}
+
+enum RedemptionStatus {
+  PENDING
+  PROCESSING
+  SHIPPED
+  DELIVERED
+  CANCELLED
+}
+
+model User {
+  id            String     @id @default(cuid())
+  email         String     @unique
+  name          String
+  passwordHash  String
+  avatarUrl     String?
+  favoriteTeam  String?
+  role          UserRole   @default(USER)
+  status        UserStatus @default(PENDING)
+  totalPoints   Int        @default(0)
+  weeklyPoints  Int        @default(0)
+  monthlyPoints Int        @default(0)
+  globalRank    Int?
+  tenantId      String?
+  createdAt     DateTime   @default(now())
+  updatedAt     DateTime   @updatedAt
+  lastLoginAt   DateTime?
+  tenant        Tenant?           @relation(fields: [tenantId], references: [id])
+  ownedTenant   Tenant?           @relation("TenantOwner")
+  predictions   Prediction[]
+  bolaoMembers  BolaoMember[]
+  redemptions   PrizeRedemption[]
+  accounts      Account[]
+  sessions      Session[]
+
+  @@index([tenantId])
+  @@index([totalPoints])
+}
+
+model Tenant {
+  id             String     @id @default(cuid())
+  slug           String     @unique
+  platformName   String
+  tagline        String?
+  primaryColor   String     @default("#FF6B00")
+  secondaryColor String     @default("#FFCA28")
+  bgColor        String     @default("#0B1120")
+  logoUrl        String?
+  faviconUrl     String?
+  customDomain   String?    @unique
+  subdomain      String     @unique
+  plan           Plan       @default(STARTER)
+  planStatus     PlanStatus @default(TRIAL)
+  planExpiresAt  DateTime?
+  maxUsers       Int?
+  ownerId        String     @unique
+  createdAt      DateTime   @default(now())
+  updatedAt      DateTime   @updatedAt
+  owner          User              @relation("TenantOwner", fields: [ownerId], references: [id])
+  users          User[]
+  boloes         Bolao[]
+  prizes         Prize[]
+  predictions    Prediction[]
+  subscription   ResellerSubscription?
+
+  @@index([slug])
+  @@index([customDomain])
+}
+
+model Competition {
+  id       String  @id @default(cuid())
+  name     String
+  slug     String  @unique
+  country  String?
+  logoUrl  String?
+  season   String
+  isActive Boolean @default(true)
+  matches  Match[]
+  teams    Team[]
+}
+
+model Team {
+  id            String       @id @default(cuid())
+  name          String
+  shortName     String
+  logoUrl       String?
+  country       String?
+  competitionId String?
+  competition   Competition? @relation(fields: [competitionId], references: [id])
+  homeMatches   Match[]      @relation("HomeTeam")
+  awayMatches   Match[]      @relation("AwayTeam")
+}
+
+model Match {
+  id               String      @id @default(cuid())
+  homeTeamId       String
+  awayTeamId       String
+  competitionId    String
+  scheduledAt      DateTime
+  closedAt         DateTime
+  status           MatchStatus @default(SCHEDULED)
+  homeScore        Int?
+  awayScore        Int?
+  venue            String?
+  pointsMultiplier Float       @default(1.0)
+  createdAt        DateTime    @default(now())
+  homeTeam         Team          @relation("HomeTeam", fields: [homeTeamId], references: [id])
+  awayTeam         Team          @relation("AwayTeam", fields: [awayTeamId], references: [id])
+  competition      Competition   @relation(fields: [competitionId], references: [id])
+  bonusQuestions   BonusQuestion[]
+  predictions      Prediction[]
+
+  @@index([scheduledAt])
+  @@index([status])
+}
+
+model BonusQuestion {
+  id            String  @id @default(cuid())
+  matchId       String
+  question      String
+  options       Json
+  correctAnswer String?
+  pointsReward  Int     @default(10)
+  match         Match   @relation(fields: [matchId], references: [id])
+}
+
+model Prediction {
+  id              String   @id @default(cuid())
+  userId          String
+  matchId         String
+  tenantId        String?
+  homeScore       Int
+  awayScore       Int
+  bonusAnswers    Json?
+  pointsEarned    Int      @default(0)
+  isExact         Boolean  @default(false)
+  isCorrectResult Boolean  @default(false)
+  submittedAt     DateTime @default(now())
+  user            User     @relation(fields: [userId], references: [id])
+  match           Match    @relation(fields: [matchId], references: [id])
+  tenant          Tenant?  @relation(fields: [tenantId], references: [id])
+
+  @@unique([userId, matchId])
+  @@index([userId])
+  @@index([matchId])
+  @@index([tenantId])
+}
+
+model Bolao {
+  id          String      @id @default(cuid())
+  name        String
+  description String?
+  inviteCode  String      @unique
+  createdById String
+  tenantId    String?
+  isPublic    Boolean     @default(false)
+  status      BolaoStatus @default(ACTIVE)
+  maxMembers  Int?
+  createdAt   DateTime    @default(now())
+  tenant      Tenant?     @relation(fields: [tenantId], references: [id])
+  members     BolaoMember[]
+
+  @@index([tenantId])
+  @@index([inviteCode])
+}
+
+model BolaoMember {
+  id          String   @id @default(cuid())
+  bolaoId     String
+  userId      String
+  totalPoints Int      @default(0)
+  rank        Int?
+  joinedAt    DateTime @default(now())
+  bolao       Bolao    @relation(fields: [bolaoId], references: [id])
+  user        User     @relation(fields: [userId], references: [id])
+
+  @@unique([bolaoId, userId])
+}
+
+model Prize {
+  id          String  @id @default(cuid())
+  name        String
+  description String?
+  imageUrl    String?
+  pointsCost  Int
+  stock       Int?
+  isActive    Boolean @default(true)
+  tenantId    String?
+  tenant      Tenant?           @relation(fields: [tenantId], references: [id])
+  redemptions PrizeRedemption[]
+
+  @@index([tenantId])
+}
+
+model PrizeRedemption {
+  id              String           @id @default(cuid())
+  userId          String
+  prizeId         String
+  status          RedemptionStatus @default(PENDING)
+  shippingAddress Json
+  redeemedAt      DateTime         @default(now())
+  deliveredAt     DateTime?
+  user            User             @relation(fields: [userId], references: [id])
+  prize           Prize            @relation(fields: [prizeId], references: [id])
+}
+
+model ResellerSubscription {
+  id                 String   @id @default(cuid())
+  tenantId           String   @unique
+  plan               Plan
+  priceMonthly       Float
+  billingCycle       String   @default("MONTHLY")
+  status             String   @default("ACTIVE")
+  currentPeriodStart DateTime
+  currentPeriodEnd   DateTime
+  tenant             Tenant   @relation(fields: [tenantId], references: [id])
+}
+
+model Account {
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String?
+  access_token      String?
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String?
+  session_state     String?
+  user              User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
+}

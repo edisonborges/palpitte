@@ -1,0 +1,16 @@
+services:
+  db:
+    image: postgres:16-alpine
+    container_name: palpitte-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: palpitte
+      POSTGRES_PASSWORD: palpitte123
+      POSTGRES_DB: palpitte
+    ports:
+      - "5432:5432"
+    volumes:
+      - palpitte-db-data:/var/lib/postgresql/data
+
+volumes:
+  palpitte-db-data:
