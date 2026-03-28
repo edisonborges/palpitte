@@ -155,7 +155,7 @@ export default function RelatoriosPage() {
               <option>Semanal</option>
             </select>
           </div>
-          <div className="relative h-[300px] w-full flex items-end justify-between gap-1 overflow-hidden">
+          <div className="relative h-75 w-full flex items-end justify-between gap-1 overflow-hidden">
             {chartBars.length > 0
               ? chartBars.map((bar, i) => {
                   const heightPct = Math.max((bar.count / maxVal) * 100, 4);
@@ -191,7 +191,7 @@ export default function RelatoriosPage() {
             <h4 className="text-lg font-bold text-white">Palpites por Dia</h4>
             <p className="text-xs text-slate-500">Média diária por usuário</p>
           </div>
-          <div className="space-y-4 h-[300px] flex flex-col justify-between">
+          <div className="space-y-4 h-75 flex flex-col justify-between">
             {dayBars.map((bar) => (
               <div key={bar.day} className="flex items-center gap-3">
                 <span className="text-xs font-medium w-8 text-slate-400">{bar.day}</span>

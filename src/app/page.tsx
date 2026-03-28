@@ -265,7 +265,7 @@ export default function LandingPage() {
 
         {/* CTA Section */}
         <section className="py-20 px-4">
-          <div className="max-w-5xl mx-auto bg-gradient-to-br from-[#FF6B00] to-orange-700 rounded-3xl p-12 text-center relative overflow-hidden shadow-2xl shadow-[#FF6B00]/20">
+          <div className="max-w-5xl mx-auto bg-linear-to-br from-[#FF6B00] to-orange-700 rounded-3xl p-12 text-center relative overflow-hidden shadow-2xl shadow-[#FF6B00]/20">
             <div className="relative z-10">
               <h2 className="text-3xl md:text-5xl font-black text-white mb-6">
                 Pronto para ser o próximo campeão?

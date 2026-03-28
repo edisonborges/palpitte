@@ -2,6 +2,7 @@ import { auth } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 import Link from "next/link";
 
+
 export default async function DashboardPage() {
   const session = await auth();
   const firstName = session?.user?.name?.split(" ")[0] ?? "Usuário";
@@ -36,7 +37,7 @@ export default async function DashboardPage() {
     : null;
 
   return (
-    <div className="max-w-[1280px] mx-auto p-8">
+    <div className="max-w-7xl mx-auto p-8">
       {/* Header */}
       <header className="flex justify-between items-end mb-8">
         <div>
@@ -63,7 +64,7 @@ export default async function DashboardPage() {
         {/* Left Column */}
         <div className="col-span-12 lg:col-span-8 space-y-8">
           {/* Points Banner */}
-          <section className="bg-gradient-to-r from-[#161e2d] to-[#1f293a] p-8 rounded-2xl border border-slate-800 relative overflow-hidden">
+          <section className="bg-linear-to-r from-[#161e2d] to-[#1f293a] p-8 rounded-2xl border border-slate-800 relative overflow-hidden">
             <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-6">
               <div>
                 <p className="text-slate-400 text-sm font-medium mb-1 uppercase tracking-widest">Sua Pontuação Total</p>
@@ -221,7 +222,7 @@ export default async function DashboardPage() {
                 return (
                   <div key={user.id} className="flex items-center gap-3">
                     <span className={`w-6 text-center font-black italic ${rankColors[i]}`}>{i + 1}º</span>
-                    <div className="w-8 h-8 rounded-full bg-slate-700 flex-shrink-0 flex items-center justify-center text-xs font-bold text-white">
+                    <div className="w-8 h-8 rounded-full bg-slate-700 shrink-0 flex items-center justify-center text-xs font-bold text-white">
                       {user.name?.[0] ?? "?"}
                     </div>
                     <span className="text-sm font-medium flex-1 truncate text-slate-200">{user.name}</span>
@@ -234,7 +235,7 @@ export default async function DashboardPage() {
                   <span className="w-6 text-center font-black italic text-[#FF6B00]">
                     {currentUser?.globalRank ?? "–"}º
                   </span>
-                  <div className="w-8 h-8 rounded-full bg-[#FF6B00]/20 flex-shrink-0 flex items-center justify-center text-[#FF6B00] font-bold text-xs border border-[#FF6B00]/40">
+                  <div className="w-8 h-8 rounded-full bg-[#FF6B00]/20 shrink-0 flex items-center justify-center text-[#FF6B00] font-bold text-xs border border-[#FF6B00]/40">
                     {firstName[0]}
                   </div>
                   <span className="text-sm font-bold flex-1 truncate text-[#FF6B00]">Você</span>
@@ -245,7 +246,7 @@ export default async function DashboardPage() {
           </section>
 
           {/* Banner Premium */}
-          <div className="rounded-2xl bg-gradient-to-br from-[#FF6B00] to-orange-600 p-6 text-white text-center">
+          <div className="rounded-2xl bg-linear-to-br from-[#FF6B00] to-orange-600 p-6 text-white text-center">
             <h4 className="font-black text-lg mb-2">SEJA PREMIUM</h4>
             <p className="text-xs mb-4 opacity-90">Participe de bolões ilimitados e concorra a prêmios todos os meses.</p>
             <button className="bg-white text-[#FF6B00] px-4 py-2 rounded-lg font-bold text-xs uppercase tracking-widest shadow-lg">

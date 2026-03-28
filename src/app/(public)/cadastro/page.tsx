@@ -76,7 +76,7 @@ export default function CadastroPage() {
 
       {/* Right Panel */}
       <div className="w-full lg:w-1/2 flex flex-col justify-center items-center p-6 sm:p-12 bg-[#1f2937]">
-        <div className="w-full max-w-[440px]">
+        <div className="w-full max-w-110">
           <div className="flex lg:hidden items-center justify-center mb-10">
             <span className="text-3xl tracking-tighter uppercase text-white" style={{ fontFamily: "'Barlow Condensed', sans-serif", fontWeight: 900, fontStyle: "italic" }}>
               Palpi<span className="text-[#FF6B00]">tt</span>e

@@ -50,7 +50,7 @@ export function ResellerSidebar({ open, onClose }: ResellerSidebarProps) {
 
       <aside
         className={cn(
-          "fixed top-0 left-0 h-full w-64 bg-[#0D1523] border-r border-white/5 z-40 flex flex-col transition-transform duration-300",
+          "fixed top-0 left-0 h-full w-64 bg-surface-3 border-r border-white/5 z-40 flex flex-col transition-transform duration-300",
           "lg:translate-x-0 lg:static lg:z-auto",
           open !== undefined &&
             (open ? "translate-x-0" : "-translate-x-full lg:translate-x-0")

@@ -166,15 +166,15 @@ export default function BaloesPage() {
                   className="group relative bg-white dark:bg-slate-800 rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-700 hover:border-[#FF6B00]/50 transition-all"
                 >
                   <div className="flex flex-col md:flex-row gap-0">
-                    <div className="w-full md:w-48 h-40 md:h-auto relative flex-shrink-0 overflow-hidden">
+                    <div className="w-full md:w-48 h-40 md:h-auto relative shrink-0 overflow-hidden">
                       {/* eslint-disable-next-line @next/next/no-img-element */}
                       <img
                         src={cover}
                         alt={bolao.name}
                         className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                       />
-                      <div className="absolute inset-0 bg-gradient-to-r from-transparent to-slate-800/60 md:block hidden" />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent md:hidden" />
+                      <div className="absolute inset-0 bg-linear-to-r from-transparent to-slate-800/60 md:block hidden" />
+                      <div className="absolute inset-0 bg-linear-to-t from-black/50 to-transparent md:hidden" />
                     </div>
                     <div className="flex-1 flex flex-col justify-between p-5">
                       <div className="flex justify-between items-start">

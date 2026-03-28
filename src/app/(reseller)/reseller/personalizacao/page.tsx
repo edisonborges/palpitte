@@ -184,7 +184,7 @@ export default async function PersonalizacaoPage() {
             </div>
 
             {/* Mobile Mockup */}
-            <div className="mx-auto w-[300px] h-[600px] border-[8px] border-slate-900 rounded-[3rem] overflow-hidden shadow-2xl relative bg-white">
+            <div className="mx-auto w-75 h-150 border-8 border-slate-900 rounded-[3rem] overflow-hidden shadow-2xl relative bg-white">
               {/* Mobile Status Bar */}
               <div className="h-6 w-full bg-white flex items-center justify-between px-6 pt-2">
                 <span className="text-[10px] font-bold text-slate-900">9:41</span>

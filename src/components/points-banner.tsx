@@ -30,7 +30,7 @@ export function PointsBanner({ points, rank, className }: PointsBannerProps) {
       {rank && (
         <div className="ml-auto text-right">
           <p className="text-xs text-zinc-400">Posição</p>
-          <p className="text-xl font-bold text-[#FFCA28] barlow-condensed">
+          <p className="text-xl font-bold text-brand-gold barlow-condensed">
             #{rank}
           </p>
         </div>

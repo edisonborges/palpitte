@@ -77,7 +77,7 @@ export function MatchCard({ match, showPrediction = true, className }: MatchCard
           </div>
 
           {/* Score / Time */}
-          <div className="flex flex-col items-center gap-1 min-w-[60px]">
+          <div className="flex flex-col items-center gap-1 min-w-15">
             {isFinished || isLive ? (
               <div className="flex items-center gap-2">
                 <span className="text-2xl font-bold barlow-condensed text-white">
@@ -127,7 +127,7 @@ export function MatchCard({ match, showPrediction = true, className }: MatchCard
                   {match.userPrediction.homeScore} × {match.userPrediction.awayScore}
                 </span>
                 {match.userPrediction.pointsEarned !== null && (
-                  <span className="text-xs text-[#00C853] font-medium ml-1">
+                  <span className="text-xs text-brand-green font-medium ml-1">
                     +{match.userPrediction.pointsEarned} pts
                   </span>
                 )}

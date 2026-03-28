@@ -12,7 +12,7 @@ interface RankingTableProps {
 }
 
 function getRankIcon(position: number) {
-  if (position === 1) return <Crown className="w-4 h-4 text-[#FFCA28]" />;
+  if (position === 1) return <Crown className="w-4 h-4 text-brand-gold" />;
   if (position === 2) return <Medal className="w-4 h-4 text-zinc-300" />;
   if (position === 3) return <Trophy className="w-4 h-4 text-amber-600" />;
   return null;

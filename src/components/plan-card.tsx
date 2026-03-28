@@ -55,7 +55,7 @@ export function PlanCard({
       <ul className="space-y-3 flex-1 mb-6">
         {features.map((feature, i) => (
           <li key={i} className="flex items-start gap-2.5 text-sm text-zinc-300">
-            <Check className="w-4 h-4 text-[#00C853] shrink-0 mt-0.5" />
+            <Check className="w-4 h-4 text-brand-green shrink-0 mt-0.5" />
             {feature}
           </li>
         ))}

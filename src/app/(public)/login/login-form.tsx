@@ -84,7 +84,7 @@ export function LoginForm() {
 
       {/* Right Panel – Form */}
       <div className="w-full lg:w-1/2 flex flex-col justify-center items-center p-6 sm:p-12 bg-[#1f2937]">
-        <div className="w-full max-w-[440px]">
+        <div className="w-full max-w-110">
           {/* Mobile logo */}
           <div className="flex lg:hidden items-center justify-center gap-2 mb-10">
             <span
